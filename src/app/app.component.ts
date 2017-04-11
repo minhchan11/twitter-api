@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 
 @Component({
@@ -8,11 +8,9 @@ import { Http, Headers} from '@angular/http';
 })
 export class AppComponent {
   title = 'app works!';
-  searchquery = '';
   tweetsdata;
 
   constructor(private http: Http){}
-
   makecall() {
     var headers = new Headers();
 
@@ -25,7 +23,7 @@ export class AppComponent {
 
   searchcall(){
     var headers = new Headers();
-    var searchterm = 'query=' + this.searchquery;
+    var searchterm = 'query=syria';
 
     headers.append('Content-Type', 'application/X-www-form-urlencoded');
 
@@ -34,16 +32,11 @@ export class AppComponent {
     });
   }
 
-  usercall(){
-    var headers = new Headers();
-    var searchterm = 'screen_name=twitterapi&count=5';
+  ngOnInit() {
+    this.makecall();
 
-    headers.append('Content-Type', 'application/X-www-form-urlencoded');
-
-    this.http.post('http://localhost:3000/user', searchterm, {headers: headers}).subscribe((res) => {
-      console.log(res.json().data);
-
-    });
+    this.searchcall();
   }
+
 
 }
